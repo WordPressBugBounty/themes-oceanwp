@@ -1295,7 +1295,8 @@ body.boxed-layout .parallax-footer {
   #wrap {
     width: 100% !important;
   }
-  body.boxed-layout #wrap {
+  body.boxed-layout #wrap,
+body.boxed-layout .parallax-footer {
     width: auto !important;
   }
   .boxed-layout #top-bar-social.top-bar-right {
@@ -2751,6 +2752,9 @@ a.pure-button-selected {
 @media only screen and (max-width: 959px) {
   .has-left-menu #site-logo {
     padding: 0 !important;
+  }
+  .has-responsive-logo a.site-logo-text {
+    display: none;
   }
 }
 /*------------------------------------*

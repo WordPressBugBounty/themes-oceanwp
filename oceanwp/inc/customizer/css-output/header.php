@@ -1052,6 +1052,7 @@ class OceanWP_Customize_Header_CSS {
 				#top-bar.has-no-content #top-bar-social.top-bar-left, #top-bar.has-no-content #top-bar-social.top-bar-right {position: inherit; left: auto; right: auto; float: none; height: auto; line-height: 1.5em; margin-top: 0; text-align: center;}
 				#top-bar.has-no-content #top-bar-social li {float: none; display: inline-block;}
 				.owp-cart-overlay, #side-panel-wrap a.side-panel-btn { display: none !important; }
+				#site-logo.has-responsive-logo a.site-logo-text { display: none; }
 			}';
 
 			// Add mobile header height

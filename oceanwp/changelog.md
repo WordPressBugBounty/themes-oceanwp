@@ -1,5 +1,14 @@
 # OceanWP Changelog
 
+### _2026.05.20_ - 4.1.6
+- **Added**:: Customizer: Control options styling support for WordPress 7.
+- **Updated**:: Compatibility: WordPress version number.
+- **Updated**:: Compatibility: WooCommerce version number.
+- **Updated**:: Template: .../woocommerce/checkout/form-multistep-checkout.php
+- **Fixed**:: Customizer: Page Title: Background Image style: Subtitle's responsive typography size not reflected on the front-end.
+- **Fixed**:: Customizer: Sidebar: Widget Margin Bottom option: Custom value not reflected on the front-end.
+- **Fixed**:: Responsiveness: Footer: Footer width not responsive on mobile devices when Parallax Footer feature is enabled and Site Layout is set to Boxed.
+
 ### _2026.02.16_ - 4.1.5
 - **NEW: Customizer**:: WooCommerce: Archives: Toolbar: Shop Result Count Max Cap option for the 'ALL' preview link: Added to protect server performance. Defaults to 36 for new sites and 100 for existing sites (max limit 1200).
 - **Added**:: Compatibility: PHP 8.X+: Deprecated: Increment on non-alphanumeric string is deprecated in .../themes/oceanwp/partials/header/style/medium-header.php on line 50

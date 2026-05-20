@@ -54,20 +54,22 @@ if ( display_header_text() && ! OCEAN_EXTRA_ACTIVE && ! class_exists( 'Ocean_Ext
 				oceanwp_custom_full_screen_logo();
 			}
 
-			// Responsive logo.
-			if ( $responsive_logo ) {
-				oceanwp_custom_responsive_logo();
-			}
+			
 
 			do_action( 'ocean_after_logo_img' );
 
 		} else {
 			if ( display_header_text() === true ) {
 				?>
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="site-title site-logo-text" <?php echo esc_attr( $header_text_color ); ?>><?php echo esc_html( get_bloginfo( 'name' ) ); ?></a>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="site-title site-logo-text desktop-text-logo" <?php echo esc_attr( $header_text_color ); ?>><?php echo esc_html( get_bloginfo( 'name' ) ); ?></a>
 				<?php
 				do_action( 'ocean_after_site_title' );
 			}
+		}
+
+		// Responsive logo.
+		if ( $responsive_logo ) {
+			oceanwp_custom_responsive_logo();
 		}
 		?>
 

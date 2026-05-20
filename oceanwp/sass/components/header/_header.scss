@@ -162,6 +162,12 @@
     .has-left-menu #site-logo {
         padding: 0 !important;
     }
+
+    .has-responsive-logo  {
+        a.site-logo-text {
+            display: none;
+        }
+    }
 }
 
 /*------------------------------------*
