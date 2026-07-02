@@ -779,7 +779,7 @@ class OceanWP_CSS_Variables {
 				array(
 					'var'     => '--owp-focus-outline-width',
 					'setting' => '',
-					'old'     => '0',
+					'old'     => '2',
 					'new'     => '2',
 					'type'    => 'size',
 					'unit'    => 'px',
@@ -788,17 +788,26 @@ class OceanWP_CSS_Variables {
 				array(
 					'var'     => '--owp-focus-outline-offset',
 					'setting' => '',
-					'old'     => '0',
+					'old'     => '2',
 					'new'     => '2',
 					'type'    => 'size',
 					'unit'    => 'px',
 				),
 
 				array(
-					'var'      => '--owp-focus-outline-color',
-					'setting'  => 'ocean_primary_color',
-					'fallback' => '#13aff0',
-					'type'     => 'color',
+					'var'     => '--owp-focus-outline-color',
+					'setting' => '',
+					'old'     => 'currentColor',
+					'new'     => 'currentColor',
+					'type'    => 'color',
+				),
+
+				array(
+					'var'     => '--owp-button-focus-outline-color',
+					'setting' => '',
+					'old'     => 'var(--owp-button-bg-color-hover, var(--owp-button-bg-color, var(--owp-primary-color, currentColor)))',
+					'new'     => 'var(--owp-button-bg-color-hover, var(--owp-button-bg-color, var(--owp-primary-color, currentColor)))',
+					'type'    => 'raw',
 				),
 
 				/**

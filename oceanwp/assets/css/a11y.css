@@ -106,6 +106,20 @@ iframe,
   outline-offset: var(--owp-focus-outline-offset, 2px);
 }
 
+body :where(input[type=button]:not([disabled]),
+input[type=reset]:not([disabled]),
+input[type=submit]:not([disabled]),
+button[type=submit]:not([disabled]),
+.theme-button,
+.button,
+div.wpforms-container-full .wpforms-form input[type=submit],
+div.wpforms-container-full .wpforms-form button[type=submit],
+div.wpforms-container-full .wpforms-form .wpforms-page-button,
+.wp-block-button__link,
+.wp-element-button):focus-visible {
+  outline-color: var(--owp-button-focus-outline-color, var(--owp-primary-color, currentColor));
+}
+
 @media (forced-colors: active) {
   body :where(a[href],
 area[href],
