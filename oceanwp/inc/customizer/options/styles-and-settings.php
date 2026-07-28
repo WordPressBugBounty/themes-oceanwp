@@ -1228,7 +1228,7 @@ $options = [
 						],
 						'attr' => [
 							'transport' => 'postMessage',
-							'default'   => function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_theme_button_bg', '#13aff0' ) : '#13aff0'
+							'default'   => oceanwp_get_theme_mod_default( 'ocean_theme_button_bg', '#13aff0' ),
 						],
 					],
 					'hover' => [
@@ -1240,7 +1240,7 @@ $options = [
 						],
 						'attr' => [
 							'transport' => 'postMessage',
-							'default'   => function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_theme_button_hover_bg', '#0b7cac' ) : '#0b7cac'
+							'default'   => oceanwp_get_theme_mod_default( 'ocean_theme_button_hover_bg', '#0b7cac' ),
 						],
 					],
 				]

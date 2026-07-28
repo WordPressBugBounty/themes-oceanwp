@@ -4,6 +4,13 @@ $extra_mode_actived = oceanwp_theme_panel()->extra_installed();
 $banner_upgrade_link = oceanwp_theme_panel()->banner_upgrade_link();
 $oe_notification_active_status = get_option( 'oe_notification_active_status', 'no' );
 $oe_disable_edit_post_active_status = get_option( 'oe_disable_edit_post_active_status', 'no' );
+$oe_display_front_end_style_editor_active_status = get_option( 'oe_display_front_end_style_editor_active_status', 'no' );
+$is_wp_7_or_higher = oceanwp_compare_wp_version( '7.0' );
+$is_ocean_extra_compatible = (
+	$extra_mode_actived
+	&& defined( 'OE_VERSION' )
+	&& version_compare( OE_VERSION, '2.5.8', '>=' )
+);
 ?>
 
 <div class="oceanwp-tp-pane-box" id="oceanwp-tp-admin-settings">
@@ -53,6 +60,43 @@ $oe_disable_edit_post_active_status = get_option( 'oe_disable_edit_post_active_s
 			</h3>
 		<?php endif; ?>
 	</div>
+
+	<?php if ( $is_wp_7_or_higher ) : ?>
+		<!-- Display Front-End Style Inside the WordPress Editor -->
+		<div class="oceanwp-tp-wide-block">
+			<div class="oceanwp-tp-block-outer">
+				<img class="oceanwp-tp-wide-block-image" src="<?php echo esc_url( OCEANWP_THEME_PANEL_URI . '/assets/images/icons/frontend-style-on-editor.png' ); ?>" />
+				<h2 class="oceanwp-tp-block-title"><?php esc_html_e( 'Display Front-End Style Inside the Block Editor', 'oceanwp' ); ?></h2>
+			</div>
+			<?php if ( $is_ocean_extra_compatible ) : ?>
+				<h3 class="oceanwp-tp-block-description"><?php esc_html_e( 'Apply your website\'s front-end theme style (typography, colors, etc.) inside the WordPress block editor (Gutenberg) for a more accurate editing experience.', 'oceanwp' ); ?></h3>
+				<div id="ocean-display-front-end-style-editor" class="oceanwp-tp-switcher column-wrap">
+				<label for="oceanwp-switch-display-front-end-style-editor" class="column-name">
+					<input type="checkbox" role="checkbox" name="display-front-end-style-editor" value="true" id="oceanwp-switch-display-front-end-style-editor" <?php checked( $oe_display_front_end_style_editor_active_status === 'yes' ); ?> />
+					<span class="slider round"></span>
+				</label>
+			</div>
+			<?php elseif ( $extra_mode_actived ) : ?>
+				<h3 class="oceanwp-tp-block-description">
+					<?php echo sprintf(
+						esc_html__( '%1$sUpdate Ocean Extra to version 2.5.8 or newer%2$s to use this feature.', 'oceanwp' ),
+						'<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">',
+						'</a>'
+					);
+					?>
+				</h3>
+			<?php else : ?>
+				<h3 class="oceanwp-tp-block-description">
+					<?php echo sprintf(
+						esc_html__( '%1$sInstall free Ocean Extra recommended plugin%2$s to unlock more features.', 'oceanwp' ),
+						'<a href="https://youtu.be/kqHNgUPWMTY" target="_blank">',
+						'</a>'
+					);
+					?>
+				</h3>
+			<?php endif; ?>
+		</div>
+	<?php endif; ?>
 
 	<!-- Regenerate Local Google CSS files -->
 	<div class="oceanwp-tp-wide-block">

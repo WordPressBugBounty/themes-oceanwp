@@ -94,6 +94,31 @@ class SidebarMobileMenu {
 
         fadeIn(overlay);
 
+        const sidrLinks = document.querySelectorAll(
+          '#sidr a[href*="#"]:not([href="#"])'
+        );
+
+        sidrLinks.forEach((link) => {
+          if (link.matches(".opl-login-li a.opl-link")) {
+            return;
+          }
+
+          // Prevent duplicate listeners.
+          if (link.dataset.anchorListenerAttached) {
+            return;
+          }
+
+          link.dataset.anchorListenerAttached = "true";
+
+          link.addEventListener("click", (event) => {
+            self.#onAnchorLinkClick(event, link);
+          });
+
+          link.addEventListener("touchend", (event) => {
+            self.#onAnchorLinkClick(event, link);
+          });
+        });
+
         overlay.addEventListener("click", (event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -192,29 +217,6 @@ class SidebarMobileMenu {
       "click",
       this.#onSidebarCloseMenuBtnClick
     );
-
-    // Remove comments from the event listeners and add exclusion for popup login link.
-    document.body.addEventListener("click", (event) => {
-      const target = event.target;
-
-      if (
-        target.matches('.sidr-class-dropdown-menu a[href*="#"]:not([href="#"]), .sidr-class-menu-item > a[href*="#"]:not([href="#"])') &&
-        !target.matches('.opl-login-li a.opl-link')
-      ) {
-        this.#onAnchorLinkClick(event);
-      }
-    });
-
-    document.body.addEventListener("touchend", (event) => {
-      const target = event.target;
-
-      if (
-        target.matches('.sidr-class-dropdown-menu a[href*="#"]:not([href="#"]), .sidr-class-menu-item > a[href*="#"]:not([href="#"])') &&
-        !target.matches('.opl-login-li a.opl-link')
-      ) {
-        this.#onAnchorLinkClick(event);
-      }
-    });
 
     this.#menuItemsPlusIcon?.forEach((menuItemPlusIcon) => {
       menuItemPlusIcon.addEventListener("click", this.#onMenuItemPlusIconClick);
@@ -367,31 +369,57 @@ class SidebarMobileMenu {
   };
 
   // New method to handle anchor link clicks
-  #onAnchorLinkClick = (event) => {
-    const href = event.currentTarget.getAttribute('href');
-    const anchor = href.substring(href.lastIndexOf('#'));
-    const targetElement = document.querySelector(anchor);
+ #onAnchorLinkClick = (event, link) => {
+  event.preventDefault();
+  event.stopPropagation();
 
-    if (targetElement) {
-        event.stopPropagation();
-        this.closeSidr();
-        setTimeout(() => {
-          const stickyHeader = document.querySelector('.oceanwp-sticky-header-holder .has-sticky-mobile');
-          const headerHeight = stickyHeader ? stickyHeader.offsetHeight : 0;
+  const href = link.getAttribute("href");
 
-          // If top bar has the sticky class, consider its height as well
-          const topBarStickyWrapper = document.querySelector('.oceanwp-sticky-top-bar-holder');
-          const topBarStickyHeight = topBarStickyWrapper ? topBarStickyWrapper.offsetHeight : 0;
+  if (!href) {
+    return;
+  }
 
-          const offset = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight - topBarStickyHeight;
+  const anchor = href.substring(href.lastIndexOf("#"));
 
-          window.scrollTo({
-              top: offset,
-              behavior: 'smooth'
-          });
-      }, 50);
-    }
-  };
+  let targetElement = null;
+
+  try {
+    targetElement = document.querySelector(anchor);
+  } catch (e) {
+    return;
+  }
+
+  if (!targetElement) {
+    return;
+  }
+
+  this.closeSidr();
+
+  setTimeout(() => {
+    const stickyHeader = document.querySelector(
+      ".oceanwp-sticky-header-holder .has-sticky-mobile"
+    );
+    const headerHeight = stickyHeader ? stickyHeader.offsetHeight : 0;
+
+    const topBarStickyWrapper = document.querySelector(
+      ".oceanwp-sticky-top-bar-holder"
+    );
+    const topBarStickyHeight = topBarStickyWrapper
+      ? topBarStickyWrapper.offsetHeight
+      : 0;
+
+    const offset =
+      targetElement.getBoundingClientRect().top +
+      window.scrollY -
+      headerHeight -
+      topBarStickyHeight;
+
+    window.scrollTo({
+      top: offset,
+      behavior: "smooth",
+    });
+  }, 50);
+};
 
   closeSidr = () => {
     setTimeout(() => {

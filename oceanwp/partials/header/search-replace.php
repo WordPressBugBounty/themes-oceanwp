@@ -22,7 +22,7 @@ $ocean_sf_id = oceanwp_unique_id( 'ocean-search-header-replace-' );
 // New accessibility settings.
 $a11y_mode_tags    = oceanwp_is_accessibility_feature_enabled( 'ocean_accessibility_header_search_tags' );
 $display_label     = oceanwp_is_accessibility_feature_enabled( 'ocean_display_header_search_form_label' );
-$custom_label_text = get_theme_mod( 'ocean_custom_header_search_form_label', __( 'Search this website', 'oceanwp' ) );
+$custom_label_text = oceanwp_get_header_search_form_label();
 
 // Aria labels, screen reader & placeholder text.
 $form_aria_label  = oceanwp_theme_strings( 'owp-string-search-form-label', false );

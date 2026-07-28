@@ -773,7 +773,7 @@ class OceanWP_Customize_Header_CSS {
 		// Menu link color
 		if ( ! empty( $menu_link_color ) && '#555555' != $menu_link_color ) {
 			$css .= '#site-navigation-wrap .dropdown-menu > li > a,#site-header #site-navigation-wrap .dropdown-menu > li > button.dropdown-toggle,#site-header #site-navigation-wrap .dropdown-menu > li > button.site-search-toggle,.oceanwp-mobile-menu-icon a,.oceanwp-mobile-menu-icon>button,#searchform-header-replace-close{color:'. $menu_link_color .';}';
-			$css .= '#site-navigation-wrap .dropdown-menu > li > a .owp-icon use,#site-header #site-navigation-wrap .dropdown-menu > li > button.dropdown-toggle .owp-icon use,#site-header, #site-navigation-wrap .dropdown-menu > li > button.site-search-toggle .owp-icon use,.oceanwp-mobile-menu-icon a .owp-icon use,#searchform-header-replace-close .owp-icon use{stroke:'. $menu_link_color .';}';
+			$css .= '#site-navigation-wrap .dropdown-menu > li > a .owp-icon use,#site-header #site-navigation-wrap .dropdown-menu > li > button.dropdown-toggle .owp-icon use,#site-header #site-navigation-wrap .dropdown-menu > li > button.site-search-toggle .owp-icon use,.oceanwp-mobile-menu-icon a .owp-icon use,.oceanwp-mobile-menu-icon>button .owp-icon use,#searchform-header-replace-close .owp-icon use{stroke:'. $menu_link_color .';}';
 		}
 
 		// Menu link color hover

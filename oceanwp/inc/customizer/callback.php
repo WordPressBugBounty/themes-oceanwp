@@ -1081,6 +1081,13 @@ function oceanwp_cac_header_video_controls() {
 
 	return false;
 }
+function ocean_cac_accessibility_mode_disabled() {
+	$default = function_exists( 'ocean_accessibility_get_default_value' )
+		? ocean_accessibility_get_default_value()
+		: false;
+
+	return ! (bool) get_theme_mod( 'ocean_accessibility_mode', $default );
+}
 
 function ocean_cac_display_search_form_label() {
 	if ( true == get_theme_mod( 'ocean_display_header_search_form_label', true ) ) {

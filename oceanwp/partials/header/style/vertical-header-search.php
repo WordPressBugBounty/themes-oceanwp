@@ -15,7 +15,7 @@ $search_post_type = get_theme_mod( 'ocean_menu_search_source', 'any' );
 
 // New accessibility and customizer settings.
 $display_label     = oceanwp_is_accessibility_feature_enabled( 'ocean_display_header_search_form_label' );
-$custom_label_text = get_theme_mod( 'ocean_custom_header_search_form_label', __( 'Search this website', 'oceanwp' ) );
+$custom_label_text = oceanwp_get_header_search_form_label();
 
 // Fallback to layout default theme string if custom input text is empty.
 $default_label_text = oceanwp_theme_strings( 'owp-string-mobile-search', false );
@@ -33,6 +33,7 @@ $label_class = $display_label ? 'vertical-header-search-visible-label' : 'screen
 $form_input_aria_label_attr = '';
 if ( ! $display_label ) {
 	$form_input_aria_label_attr = sprintf( 'aria-label="%s"', esc_attr( $input_aria_text ) );
+	$form_placeholder_attr      = sprintf( 'placeholder="%s"', esc_attr( $form_placeholder ) );
 }
 ?>
 
@@ -43,7 +44,7 @@ if ( ! $display_label ) {
 			<?php echo esc_html( $label_text ); ?>
 		</label>
 
-		<input id="verh-input" type="search" name="s" autocomplete="off" value="" placeholder="<?php echo esc_attr( $input_aria_text ); ?>" <?php echo $form_input_aria_label_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>/>
+		<input id="verh-input" type="search" name="s" autocomplete="off" value="" <?php echo $form_placeholder_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo $form_input_aria_label_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>/>
 
 		<button type="submit" class="search-submit" aria-label="<?php echo esc_attr( oceanwp_theme_strings( 'owp-string-mobile-submit-search', false ) ); ?>">
 			<?php oceanwp_icon( 'search' ); ?>

@@ -61,7 +61,7 @@ $options = [
 				],
 				'attr' => [
 					'transport' => 'postMessage',
-					'default'   => function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_primary_color', '#13aff0' ) : '#13aff0',
+					'default'   => oceanwp_get_theme_mod_default( 'ocean_primary_color', '#13aff0' ),
 				],
 			],
 			'hover' => [
@@ -73,7 +73,7 @@ $options = [
 				],
 				'attr' => [
 					'transport' => 'postMessage',
-					'default'   => function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_hover_primary_color', '#0b7cac' ) : '#0b7cac',
+					'default'   => oceanwp_get_theme_mod_default( 'ocean_hover_primary_color', '#0b7cac' ),
 				],
 			]
 		]
@@ -363,7 +363,7 @@ $options = [
 				],
 				'attr' => [
 					'transport' => 'postMessage',
-					'default'   => function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_links_color', '#333333' ) : '#333333',
+					'default'   => oceanwp_get_theme_mod_default( 'ocean_links_color', '#333333' ),
 				],
 			],
 			'hover' => [
@@ -376,7 +376,7 @@ $options = [
 				],
 				'attr' => [
 					'transport' => 'postMessage',
-					'default'   => function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_links_color_hover', '#13aff0' ) : '#13aff0',
+					'default'   => oceanwp_get_theme_mod_default( 'ocean_links_color_hover', '#13aff0' ),
 				],
 			]
 		]

@@ -900,7 +900,6 @@ if ( ! function_exists( 'oceanwp_display_topbar' ) ) {
 
 /**
  * Top bar template
- * I make a function to be able to remove it for the Beaver Themer plugin
  *
  * @since 1.2.5
  */
@@ -5587,68 +5586,80 @@ if ( ! function_exists( 'oceanwp_is_accessibility_feature_enabled' ) ) {
 	}
 }
 
-/**
- * Whether semantic mobile menu markup is enabled.
- *
- * @return bool
- */
-function oceanwp_is_semantic_mobile_header_enabled() {
-	$enabled = oceanwp_is_accessibility_feature_enabled( 'ocean_accessibility_mobile_header_tags' );
+if ( ! function_exists( 'oceanwp_is_semantic_mobile_header_enabled' ) ) {
 
-	return (bool) apply_filters(
-		'oceanwp_is_semantic_mobile_header_enabled',
-		$enabled
-	);
-}
+	/**
+	 * Whether semantic mobile menu markup is enabled.
+	 *
+	 * @return bool
+	 */
+	function oceanwp_is_semantic_mobile_header_enabled() {
+		$enabled = oceanwp_is_accessibility_feature_enabled( 'ocean_accessibility_mobile_header_tags' );
 
-/**
- * Whether semantic desktop header menu markup is enabled.
- *
- * @return bool
- */
-function oceanwp_is_semantic_desktop_header_enabled() {
-	$enabled = oceanwp_is_accessibility_feature_enabled( 'ocean_accessibility_main_header_tags' );
-
-	return (bool) apply_filters(
-		'oceanwp_is_semantic_desktop_header_enabled',
-		$enabled
-	);
-}
-
-/**
- * Accessible header video layout
- *
- * @return bool
- */
-function oceanwp_is_accessible_header_video_enabled() {
-	$enabled = oceanwp_is_accessibility_feature_enabled( 'ocean_accessible_header_video_layout', ocean_accessibility_get_header_media_default_value() );
-
-	return (bool) apply_filters(
-		'oceanwp_is_accessible_header_video_enabled',
-		$enabled
-	);
-}
-
-/**
- * Header supported
- *
- * @return bool
- */
-function oceanwp_is_header_style_supported( $allowed_styles = [] ) {
-
-	$style = oceanwp_header_style();
-
-	$allowed_styles = apply_filters(
-		'oceanwp_supported_header_styles',
-		$allowed_styles,
-		$style
-	);
-
-	if ( empty( $allowed_styles ) ) {
-		return true;
+		return (bool) apply_filters(
+			'oceanwp_is_semantic_mobile_header_enabled',
+			$enabled
+		);
 	}
+}
 
-	return in_array( $style, $allowed_styles, true );
+if ( ! function_exists( 'oceanwp_is_semantic_desktop_header_enabled' ) ) {
+
+	/**
+	 * Whether semantic desktop header menu markup is enabled.
+	 *
+	 * @return bool
+	 */
+	function oceanwp_is_semantic_desktop_header_enabled() {
+		$enabled = oceanwp_is_accessibility_feature_enabled( 'ocean_accessibility_main_header_tags' );
+
+		return (bool) apply_filters(
+			'oceanwp_is_semantic_desktop_header_enabled',
+			$enabled
+		);
+	}
+}
+
+if ( ! function_exists( 'oceanwp_is_accessible_header_video_enabled' ) ) {
+
+	/**
+	 * Accessible header video layout
+	 *
+	 * @return bool
+	 */
+	function oceanwp_is_accessible_header_video_enabled() {
+		$enabled = oceanwp_is_accessibility_feature_enabled( 'ocean_accessible_header_video_layout', ocean_accessibility_get_header_media_default_value() );
+
+		return (bool) apply_filters(
+			'oceanwp_is_accessible_header_video_enabled',
+			$enabled
+		);
+	}
+}
+
+if ( ! function_exists( 'oceanwp_is_header_style_supported' ) ) {
+
+	/**
+	 * Header supported
+	 *
+	 * @return bool
+	 */
+	function oceanwp_is_header_style_supported( $allowed_styles = [] ) {
+
+		$style = oceanwp_header_style();
+
+		$allowed_styles = apply_filters(
+			'oceanwp_supported_header_styles',
+			$allowed_styles,
+			$style
+		);
+
+		if ( empty( $allowed_styles ) ) {
+			return true;
+		}
+
+		return in_array( $style, $allowed_styles, true );
+	}
 }
 
 /**
@@ -5674,6 +5685,11 @@ if ( ! function_exists( 'oceanwp_mobile_menu_dropdown_target' ) ) {
 
 if ( ! function_exists( 'oceanwp_vertical_header_dropdown_target' ) ) {
 
+	/**
+	 * Return the vertical header dropdown target.
+	 *
+	 * @return string Dropdown target. Possible values: link or icon.
+	 */
 	function oceanwp_vertical_header_dropdown_target() {
 		$target = get_theme_mod( 'ocean_vertical_header_dropdown_target', 'link' );
 		$target = $target ? $target : 'link';
@@ -5688,6 +5704,13 @@ if ( ! function_exists( 'oceanwp_vertical_header_dropdown_target' ) ) {
 
 if ( ! function_exists( 'oceanwp_is_enhanced_mobile_menu_context' ) ) {
 
+	/**
+	 * Check whether the menu context is an enhanced mobile menu context.
+	 *
+	 * @param string $context Menu context.
+	 *
+	 * @return bool True if enhanced mobile menu context, otherwise false.
+	 */
 	function oceanwp_is_enhanced_mobile_menu_context( $context ) {
 		return in_array(
 			$context,
@@ -5702,6 +5725,13 @@ if ( ! function_exists( 'oceanwp_is_enhanced_mobile_menu_context' ) ) {
 
 if ( ! function_exists( 'oceanwp_is_enhanced_submenu_context' ) ) {
 
+	/**
+	 * Check whether the menu context supports enhanced submenu behavior.
+	 *
+	 * @param string $context Menu context.
+	 *
+	 * @return bool True if enhanced submenu context, otherwise false.
+	 */
 	function oceanwp_is_enhanced_submenu_context( $context ) {
 		return in_array(
 			$context,
@@ -5716,123 +5746,200 @@ if ( ! function_exists( 'oceanwp_is_enhanced_submenu_context' ) ) {
 	}
 }
 
-/**
- * Maybe create an OceanWP nav walker with semantic submenu toggles enabled.
- *
- * @param string $context Menu context.
- *
- * @return OceanWP_Custom_Nav_Walker
- */
-function oceanwp_get_nav_walker( $context = 'default' ) {
-	$context                  = $context ? $context : 'default';
-	$controls_enabled         = false;
-	$semantic                 = false;
-	$submenu_dropdown_target  = 'link';
+if ( ! function_exists( 'oceanwp_get_nav_walker' ) ) {
 
-	if ( 'mobile-dropdown' === $context ) {
-		$semantic                = oceanwp_is_semantic_mobile_header_enabled();
-		$controls_enabled        = $semantic;
-		$submenu_dropdown_target = oceanwp_mobile_menu_dropdown_target();
+	/**
+	 * Maybe create an OceanWP nav walker with semantic submenu toggles enabled.
+	 *
+	 * @param string $context Menu context.
+	 *
+	 * @return OceanWP_Custom_Nav_Walker
+	 */
+	function oceanwp_get_nav_walker( $context = 'default' ) {
+		$context                  = $context ? $context : 'default';
+		$controls_enabled         = false;
+		$semantic                 = false;
+		$submenu_dropdown_target  = 'link';
+
+		if ( 'mobile-dropdown' === $context ) {
+			$semantic                = oceanwp_is_semantic_mobile_header_enabled();
+			$controls_enabled        = $semantic;
+			$submenu_dropdown_target = oceanwp_mobile_menu_dropdown_target();
+		}
+
+		if ( 'mobile-fullscreen' === $context ) {
+			$semantic                = oceanwp_is_semantic_mobile_header_enabled();
+			$controls_enabled        = $semantic;
+			$submenu_dropdown_target = 'link';
+		}
+
+		if ( 'vertical-header' === $context ) {
+			$semantic                = oceanwp_is_semantic_desktop_header_enabled();
+			$controls_enabled        = $semantic;
+			$submenu_dropdown_target = oceanwp_vertical_header_dropdown_target();
+		}
+
+		if ( 'full-screen-header' === $context ) {
+			$semantic                = oceanwp_is_semantic_desktop_header_enabled();
+			$controls_enabled        = $semantic;
+			$submenu_dropdown_target = 'auto';
+		}
+
+		return new OceanWP_Custom_Nav_Walker(
+			array(
+				'context'                  => $context,
+				'submenu_controls_enabled' => $controls_enabled,
+				'semantic_submenu_toggles' => $semantic,
+				'submenu_dropdown_target'  => $submenu_dropdown_target,
+			)
+		);
 	}
-
-	if ( 'mobile-fullscreen' === $context ) {
-		$semantic                = oceanwp_is_semantic_mobile_header_enabled();
-		$controls_enabled        = $semantic;
-		$submenu_dropdown_target = 'link';
-	}
-
-	if ( 'vertical-header' === $context ) {
-		$semantic                = oceanwp_is_semantic_desktop_header_enabled();
-		$controls_enabled        = $semantic;
-		$submenu_dropdown_target = oceanwp_vertical_header_dropdown_target();
-	}
-
-	if ( 'full-screen-header' === $context ) {
-		$semantic                = oceanwp_is_semantic_desktop_header_enabled();
-		$controls_enabled        = $semantic;
-		$submenu_dropdown_target = 'auto';
-	}
-
-	return new OceanWP_Custom_Nav_Walker(
-		array(
-			'context'                  => $context,
-			'submenu_controls_enabled' => $controls_enabled,
-			'semantic_submenu_toggles' => $semantic,
-			'submenu_dropdown_target'  => $submenu_dropdown_target,
-		)
-	);
 }
 
-/**
- * Conditionally apply OceanWP nav walker to menu args.
- *
- * @param array  $args    Menu args.
- * @param string $context Menu context.
- *
- * @return array
- */
-function oceanwp_apply_nav_walker_context( $args, $context = 'default' ) {
-	$context = $context ? $context : 'default';
+if ( ! function_exists( 'oceanwp_apply_nav_walker_context' ) ) {
 
-	/*
-	 * Do not apply mobile menu context unless semantic mobile header markup
-	 * is enabled. Preserves legacy markup. Avoids legacy Full Screen or
-	 * Dropdown mobile menus displaying duplicate submenu icons or toggles.
+	/**
+	 * Conditionally apply OceanWP nav walker to menu args.
+	 *
+	 * @param array  $args    Menu args.
+	 * @param string $context Menu context.
+	 *
+	 * @return array
 	 */
-	if ( oceanwp_is_enhanced_mobile_menu_context( $context )
-		&& ! oceanwp_is_semantic_mobile_header_enabled() ) {
+	function oceanwp_apply_nav_walker_context( $args, $context = 'default' ) {
+		$context = $context ? $context : 'default';
+
+		/*
+		* Do not apply mobile menu context unless semantic mobile header markup
+		* is enabled. Preserves legacy markup. Avoids legacy Full Screen or
+		* Dropdown mobile menus displaying duplicate submenu icons or toggles.
+		*/
+		if ( oceanwp_is_enhanced_mobile_menu_context( $context )
+			&& ! oceanwp_is_semantic_mobile_header_enabled() ) {
+			return $args;
+		}
+
+		$args['walker'] = oceanwp_get_nav_walker( $context );
+
 		return $args;
 	}
-
-	$args['walker'] = oceanwp_get_nav_walker( $context );
-
-	return $args;
 }
 
-/**
- * Video play button svg
- *
- * @return bool
- */
-function oceanwp_accessible_video_svg( $icon ) {
+if ( ! function_exists( 'oceanwp_accessible_video_svg' ) ) {
 
-	$icons = [
-		'play' => '
-			<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-				<path d="M8 5v14l11-7z"></path>
-			</svg>
-		',
+	/**
+	 * Return accessible video control SVG markup.
+	 *
+	 * @param string $icon Icon name.
+	 *
+	 * @return string SVG markup, or empty string if icon is not available.
+	 */
+	function oceanwp_accessible_video_svg( $icon ) {
 
-		'pause' => '
-			<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-				<path d="M6 5h4v14H6zm8 0h4v14h-4z"></path>
-			</svg>
-		',
-	];
+		$icons = [
+			'play' => '
+				<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+					<path d="M8 5v14l11-7z"></path>
+				</svg>
+			',
 
-	return $icons[ $icon ] ?? '';
+			'pause' => '
+				<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+					<path d="M6 5h4v14H6zm8 0h4v14h-4z"></path>
+				</svg>
+			',
+		];
+
+		return $icons[ $icon ] ?? '';
+	}
 }
 
-/**
- * Play button svg
- *
- * @return bool
- */
-function oceanwp_header_video_controls( $settings ) {
+if ( ! function_exists( 'oceanwp_header_video_controls' ) ) {
 
-	$settings['l10n']['play'] =
-		'<span class="screen-reader-text">' .
-		esc_html__( 'Play background video', 'oceanwp' ) .
-		'</span>' .
-		oceanwp_accessible_video_svg( 'play' );
+	/**
+	 * Add accessible video control labels and icons.
+	 *
+	 * @param array $settings Header video settings.
+	 *
+	 * @return array Modified header video settings.
+	 */
+	function oceanwp_header_video_controls( $settings ) {
 
-	$settings['l10n']['pause'] =
-		'<span class="screen-reader-text">' .
-		esc_html__( 'Pause background video', 'oceanwp' ) .
-		'</span>' .
-		oceanwp_accessible_video_svg( 'pause' );
+		$settings['l10n']['play'] =
+			'<span class="screen-reader-text">' .
+			esc_html__( 'Play background video', 'oceanwp' ) .
+			'</span>' .
+			oceanwp_accessible_video_svg( 'play' );
 
-	return $settings;
+		$settings['l10n']['pause'] =
+			'<span class="screen-reader-text">' .
+			esc_html__( 'Pause background video', 'oceanwp' ) .
+			'</span>' .
+			oceanwp_accessible_video_svg( 'pause' );
+
+		return $settings;
+	}
 }
 
 add_filter( 'header_video_settings', 'oceanwp_header_video_controls' );
+
+if ( ! function_exists( 'oceanwp_get_header_search_form_label' ) ) {
+
+	/**
+	 * Return the header search form custom label
+	 *
+	 * @return string
+	 */
+	function oceanwp_get_header_search_form_label() {
+		$label = get_theme_mod(
+			'ocean_custom_header_search_form_label',
+			__( 'Search this website', 'oceanwp' )
+		);
+
+		return $label;
+	}
+}
+
+if ( ! function_exists( 'oceanwp_get_theme_mod_default' ) ) {
+
+	/**
+	 * Return a Customizer setting default with backwards-safe fallback.
+	 *
+	 * This wraps oceanwp_get_customizer_default() so templates and CSS output
+	 * do not need to repeat function_exists() checks.
+	 *
+	 * @param string $setting_id Customizer setting ID.
+	 * @param mixed  $fallback   Fallback value.
+	 * @param string $version    Version used for existing-install detection.
+	 *
+	 * @return mixed
+	 */
+	function oceanwp_get_theme_mod_default( $setting_id, $fallback = '', $version = '4.2.0' ) {
+		if ( function_exists( 'oceanwp_get_customizer_default' ) ) {
+			return oceanwp_get_customizer_default( $setting_id, $fallback, $version );
+		}
+
+		return $fallback;
+	}
+}
+
+/**
+ * Compare the current WordPress version.
+ *
+ * @param string $version  Version to compare against (e.g. '7', '7.0', '7.3').
+ * @param string $operator Comparison operator. Default '>='.
+ *
+ * @return bool
+ */
+function oceanwp_compare_wp_version( $version, $operator = '>=' ) {
+	global $wp_version;
+
+	$result = version_compare( $wp_version, $version, $operator );
+
+	return (bool) apply_filters(
+		'oceanwp_compare_wp_version',
+		$result,
+		$version,
+		$operator
+	);
+}

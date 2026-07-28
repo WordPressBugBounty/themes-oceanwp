@@ -18,7 +18,7 @@ $ocean_msf_id = oceanwp_unique_id( 'ocean-mobile-search-' );
 
 // New accessibility settings.
 $display_label     = oceanwp_is_accessibility_feature_enabled( 'ocean_display_header_search_form_label' );
-$custom_label_text = get_theme_mod( 'ocean_custom_header_search_form_label', __( 'Search this website', 'oceanwp' ) );
+$custom_label_text = oceanwp_get_header_search_form_label();
 
 // Aria labels, screen reader & placeholder text strings.
 $form_aria_label   = oceanwp_theme_strings( 'owp-string-search-form-label', false );

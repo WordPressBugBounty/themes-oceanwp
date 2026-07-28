@@ -224,7 +224,7 @@ if ( ! function_exists( 'oceanwp_get_customizer_default' ) ) {
 
 		$defaults = oceanwp_get_customizer_defaults_map();
 
-		if ( empty( $defaults[ $setting_id ] ) ) {
+		if ( ! array_key_exists( $setting_id, $defaults ) || ! is_array( $defaults[ $setting_id ] ) ) {
 			return $fallback;
 		}
 

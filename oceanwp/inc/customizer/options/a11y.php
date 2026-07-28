@@ -22,6 +22,18 @@ $options = [
 		'sanitize_callback' => 'oceanwp_sanitize_checkbox',
 	],
 
+	'ocean_accessibility_keyboard_focus_outline' => [
+		'type'              => 'ocean-switch',
+		'label'             => esc_html__( 'Enable Keyboard Focus Outline', 'oceanwp' ),
+		'desc'              => esc_html__( 'Adds a visible focus outline for keyboard navigation without enabling the full Accessibility Mode stylesheet.', 'oceanwp' ),
+		'section'           => 'ocean_accessibility',
+		'default'           => false,
+		'transport'         => 'refresh',
+		'priority'          => 10,
+		'sanitize_callback' => 'oceanwp_sanitize_checkbox',
+		'active_callback'   => 'ocean_cac_accessibility_mode_disabled',
+	],
+	
 	'ocean_divider_after_accessibility_mode_switch' => [
 		'type' => 'ocean-divider',
 		'section' => 'ocean_accessibility',

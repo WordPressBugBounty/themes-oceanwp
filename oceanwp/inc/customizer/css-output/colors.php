@@ -15,43 +15,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 class OceanWP_Colors_CSS {
 
 	/**
-	 * fonts
-	 *
-	 * @var $fonts
-	 * @access private
-	 * @since 3.5.1
-	 */
-	private $fonts = array();
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		add_filter('ocean_head_css', array($this, 'generate_css'));
+		add_filter( 'ocean_head_css', array( $this, 'generate_css' ) );
 	}
 
-	public function generate_css($output) {
-		$primary_color_default = function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_primary_color', '#13aff0' ) : '#13aff0';
+	public function generate_css( $output ) {
+		$primary_color_default = oceanwp_get_theme_mod_default( 'ocean_primary_color', '#13aff0' );
 		$primary_color         = get_theme_mod( 'ocean_primary_color', $primary_color_default );
 
-		$hover_primary_color_default = function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_hover_primary_color', '#0b7cac' ) : '#0b7cac';
+		$hover_primary_color_default = oceanwp_get_theme_mod_default( 'ocean_hover_primary_color', '#0b7cac' );
 		$hover_primary_color         = get_theme_mod( 'ocean_hover_primary_color', $hover_primary_color_default );
 
 		$main_border_color   = get_theme_mod( 'ocean_main_border_color', '#e9e9e9' );
 		$background_color    = get_theme_mod( 'ocean_background_color', '#ffffff' );
 
-		$links_color_default       = function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_links_color', '#333333' ) : '#333333';
+		$links_color_default       = oceanwp_get_theme_mod_default( 'ocean_links_color', '#333333' );
 		$links_color               = get_theme_mod( 'ocean_links_color', $links_color_default );
-		$links_color_hover_default = function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_links_color_hover', '#13aff0' ) : '#13aff0';
+		$links_color_hover_default = oceanwp_get_theme_mod_default( 'ocean_links_color_hover', '#13aff0' );
 		$links_color_hover         = get_theme_mod( 'ocean_links_color_hover', $links_color_hover_default );
 
 		$boxed_outside_bg    = get_theme_mod( 'ocean_boxed_outside_bg', '#e9e9e9' );
 		$separate_outside_bg = get_theme_mod( 'ocean_separate_outside_bg', '#f1f1f1' );
 		$boxed_inner_bg      = get_theme_mod( 'ocean_boxed_inner_bg', '#ffffff' );
 
-		$theme_button_bg_default       = function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_theme_button_bg', '#13aff0' ) : '#13aff0';
+		$theme_button_bg_default       = oceanwp_get_theme_mod_default( 'ocean_theme_button_bg', '#13aff0' );
 		$theme_button_bg               = get_theme_mod( 'ocean_theme_button_bg', $theme_button_bg_default );
-		$theme_button_hover_bg_default = function_exists( 'oceanwp_get_customizer_default' ) ? oceanwp_get_customizer_default( 'ocean_theme_button_hover_bg', '#0b7cac' ) : '#0b7cac';
+		$theme_button_hover_bg_default = oceanwp_get_theme_mod_default( 'ocean_theme_button_hover_bg', '#0b7cac' );
 		$theme_button_hover_bg         = get_theme_mod( 'ocean_theme_button_hover_bg', $theme_button_hover_bg_default );
 		$theme_button_color            = get_theme_mod( 'ocean_theme_button_color', '#ffffff' );
 		$theme_button_hover_color      = get_theme_mod( 'ocean_theme_button_hover_color', '#ffffff' );
